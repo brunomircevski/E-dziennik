@@ -1,0 +1,65 @@
+@model Grade
+@{
+    ViewData["Title"] = "Klasa";
+    int i = 1;
+    int count = 0;
+    float sum = 0;
+    int totalCount = 0;
+    float totalSum = 0;
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewBag.subject.Name @ViewBag.group.Name</h1><br><br>
+
+    <form asp-controller="Teacher" asp-action="AddGrade" method="post">
+        <label asp-for="StudentId"></label>
+        <select asp-for="StudentId" asp-items="@ViewBag.students" ></select>
+        <span asp-validation-for="StudentId" class="text-danger"></span> 
+
+        <label asp-for="Value"></label>
+        <select asp-for="Value" asp-items="@ViewBag.grades" ></select>
+        <span asp-validation-for="Value" class="text-danger"></span> 
+
+        <label asp-for="Weight"></label>
+        @Html.DropDownListFor(m => m.Weight, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
+        <span asp-validation-for="Weight" class="text-danger"></span>
+
+        <input type="hidden" name="GroupId" value="@ViewBag.group.Id">
+        <input type="hidden" name="SubjectId" value="@ViewBag.subject.Id">
+
+        <button type="submit">Dodaj ocenę</button><br><br>
+    </form>
+
+    <table class="table mt-5">
+        <tr>
+            <th>Id</th>
+            <th>Imię i Nazwisko</th>
+            <th>Oceny</th>
+            <th>Średnia</th>
+        </tr>
+        @foreach(Student s in ViewBag.group.Students) {
+        <tr>
+            <th>@i</th>
+            <th>@s.Name</th>
+            <th>
+                @foreach(Grade g in s.Grades) {
+                    <a asp-controller="Teacher" asp-action="DeleteGrade" asp-route-id="@g.Id" asp-route-groupId="@ViewBag.group.Id" asp-route-subjectId="@ViewBag.subject.Id"><span class='grade-item' data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true"
+                    title='Ocena: <b>@g.ToString()</b><br>Waga: @g.Weight<br>@g.Date.ToString("dd/MM/yyyy HH:mm")'>@g.ToString()
+                    </span></a>
+                    sum += g.Value*g.Weight;
+                    count += g.Weight;
+                }
+            </th>
+            <th>@(Math.Round(sum/count,2))</th>
+        </tr>
+        totalCount += count;
+        totalSum += sum;
+
+        sum = 0;
+        count = 0;
+        i++;
+        }
+
+    </table>
+    <p>Średnia klasy: @(Math.Round(totalSum/totalCount,2))</p>
+</div>

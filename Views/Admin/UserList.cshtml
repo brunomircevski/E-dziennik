@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Użytkownicy";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Użytkownicy</h1><br><br>
+    <table class="table">
+        <tr>
+            <th>Imię i Nazwisko</th>
+            <th>Email</th>
+            <th>Rola</th>
+            <th>Akcja</th>
+        </tr>
+        @foreach(SiteUser u in ViewBag.users) {
+        <tr>
+            <th>@u.Name</th>
+            <th>@u.Email</th>
+            <th>@Roles.Translate(u.Role)</th>
+            <th>
+                <a asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@u.Id" asp-route-role="@u.Role">Usuń</a> | 
+                <a asp-controller="Account" asp-action="Profile" asp-route-id="@u.Id" asp-route-role="@u.Role">Profil</a>
+            </th>
+        </tr>
+        }
+
+    </table>
+</div>

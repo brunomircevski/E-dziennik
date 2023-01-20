@@ -1,0 +1,12 @@
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Panel Administratora</h1>
+    <a asp-controller="Admin" asp-action="RegisterStudent">Dodaj Ucznia</a><br>
+    <a asp-controller="Admin" asp-action="RegisterUser" asp-route-role="teacher">Dodaj Nauczyciela</a><br>
+    <a asp-controller="Admin" asp-action="RegisterUser" asp-route-role="parent">Dodaj Rodzica</a><br>
+    <a asp-controller="Admin" asp-action="RegisterUser" asp-route-role="admin">Dodaj Administratora</a><br>
+    <a asp-controller="Admin" asp-action="UserList">Lista użytkowników</a><br>
+</div>

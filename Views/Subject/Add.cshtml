@@ -1,0 +1,26 @@
+@model Subject
+@{
+    ViewData["Title"] = "Dodaj przedmiot";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Dodaj przedmiot</h1>
+    <form asp-controller="Subject" asp-action="Add" method="post">
+        <label asp-for="Name"></label>
+        <input asp-for="Name"><br>
+        <span asp-validation-for="Name" class="text-danger"></span> <br>
+
+        <label asp-for="TeacherId"></label>
+        <select asp-for="TeacherId" asp-items="@ViewBag.teachers" ></select>
+        <span asp-validation-for="TeacherId" class="text-danger"></span> <br>
+
+        <button type="submit">Dodaj klasę</button><br><br>
+        @if(ViewBag.error == "true") {
+            <span class="text-danger">Bład podczas dodawania klasy</span>
+        }
+        @if(ViewBag.error == "false") {
+            <span class="text-success">Pomyślnie dodano klasę</span>
+        }
+    </form>
+
+</div>

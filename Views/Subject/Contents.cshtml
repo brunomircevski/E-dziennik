@@ -1,0 +1,46 @@
+@model Content
+@{
+    ViewData["Title"] = "Materiały";
+
+    Subject subject = ViewBag.subject;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Materiały @ViewBag.subject.Name</h1><br><br>
+
+    <form asp-controller="Subject" asp-action="Contents" method="post">
+
+        <label asp-for="Name"></label>
+        <input name="Name">
+        <span asp-validation-for="Name" class="text-danger"></span> 
+
+        <label asp-for="Link"></label>
+        <input name="Link">
+        <span asp-validation-for="Link" class="text-danger"></span>
+
+        <input type="hidden" name="SubjectId" value="@subject.Id">
+
+        <button type="submit">Dodaj materiał</button><br><br>
+    </form>
+
+    @if(ViewBag.error == "true") {
+        <div class="text-danger">Wystąpił błąd podczas dodawania materiału.</div>
+    }
+
+   <table class="table table-striped mt-5">
+        <tr>
+            <th>Nazwa</th>
+            <th>Zawarość</th>
+            <th>Data dodania</th>
+            <th>Akcja</th>
+        </tr>
+            @foreach(Content c in subject.Contents) {
+                <tr>
+                    <td>@c.Name</td>
+                    <td>@if(@c.Link.StartsWith("http")) { <a href="@c.Link">@c.Link</a> } else { @c.Link }</td>
+                    <td>@c.Date.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td><a asp-controller="Subject" asp-action="DeleteContent" asp-route-id="@c.Id" asp-route-subjectId="@subject.Id">Usuń</a></td>
+                </tr>
+            }
+    </table>
+</div>

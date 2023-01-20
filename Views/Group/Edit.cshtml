@@ -1,0 +1,32 @@
+@model Group
+@{
+    ViewData["Title"] = "Edytuj klasę";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Edytuj klasę</h1>
+    <form asp-controller="Group" asp-action="Edit" method="post">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" value="@ViewBag.group.Name"><br>
+        <span asp-validation-for="Name" class="text-danger"></span> <br>
+
+        <label asp-for="TeacherId"></label>
+        <select asp-for="TeacherId" asp-items="@ViewBag.teachers"></select>
+        <span asp-validation-for="TeacherId" class="text-danger"></span> <br>
+
+        <input type="hidden" name="Id" value="@ViewBag.group.Id">
+
+        <button type="submit">Zapisz</button><br><br>
+    </form>
+
+    <form asp-controller="Group" asp-action="Students" method="post">
+        <label asp-for="StudentIds"></label>
+        <select multiple="multiple" asp-for="StudentIds" asp-items="@ViewBag.students" ></select>
+        <span asp-validation-for="StudentIds" class="text-danger"></span> <br>
+
+        <input type="hidden" name="Id" value="@ViewBag.group.Id">
+
+        <button type="submit">Zapisz</button><br><br>
+    </form>
+
+</div>

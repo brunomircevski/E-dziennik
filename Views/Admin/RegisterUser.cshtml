@@ -1,0 +1,44 @@
+@model CreateUser
+@{
+    ViewData["Title"] = "Dodaj użytkownika";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Dodaj użytkownika</h1>
+    <form asp-controller="Admin" asp-action="RegisterUser" method="post">
+        <label asp-for="Email"></label>
+        <input asp-for="Email"><br>
+        <span asp-validation-for="Email" class="text-danger"></span> <br>
+
+        <label asp-for="Name"></label>
+        <input asp-for="Name"><br>
+        <span asp-validation-for="Name" class="text-danger"></span> <br>
+
+        <label asp-for="Password"></label>
+        <input asp-for="Password"><br>
+        <span asp-validation-for="Password" class="text-danger"></span> <br>
+
+        <select asp-for="Role">
+            <option value="teacher">Nauczyciel</option>
+            @if(ViewBag.role == "parent") {
+                <option value="parent" selected="selected">Rodzic</option>
+            } else {
+                <option value="parent">Rodzic</option>
+            }
+            @if(ViewBag.role == "admin") {
+                <option value="admin" selected="selected">Administrator</option>
+            } else {
+                <option value="admin">Administrator</option>
+            }
+        </select><br><br>
+
+        <button type="submit">Dodaj użytkownika</button><br><br>
+        @if(ViewBag.error == "true") {
+            <span class="text-danger">Bład podczas tworzenia użytkownika</span>
+        }
+        @if(ViewBag.error == "false") {
+            <span class="text-success">Pomyślnie dodano użytkownika</span>
+        }
+    </form>
+
+</div>

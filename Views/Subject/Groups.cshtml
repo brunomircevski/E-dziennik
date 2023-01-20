@@ -1,0 +1,19 @@
+@model Subject
+@{
+    ViewData["Title"] = "Klasy z przedmiotem";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Klasy z przedmiotem</h1><br><br>
+    <p>Przedmiot:  @ViewBag.subject.Name <br>Nauczyciel: @ViewBag.subject.Teacher.Name</p>
+    
+    <form asp-controller="Subject" asp-action="Groups" method="post">
+        <label asp-for="GroupIds"></label>
+        <select multiple="multiple" asp-for="GroupIds" asp-items="@ViewBag.groups"></select>
+        <span asp-validation-for="GroupIds" class="text-danger"></span> <br>
+
+        <input type="hidden" name="Id" value="@ViewBag.subject.Id">
+
+        <button type="submit">Zapisz</button><br><br>
+    </form>
+</div>

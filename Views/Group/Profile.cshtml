@@ -1,0 +1,49 @@
+@{
+    ViewData["Title"] = "Klasa";
+    int i = 1;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Klasa @ViewBag.group.Name</h1><br><br>
+    <p>Wychowawca @ViewBag.group.Teacher.Name</p>
+    <p>Liczba uczniów: @ViewBag.group.Students.Count</p>
+
+    <h2 class="display-8 mt-5">Uczniowie</h2>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Imię i Nazwisko</th>
+            <th>Akcja</th>
+        </tr>
+        @foreach(Student s in ViewBag.group.Students) {
+        <tr>
+            <th>@i</th>
+            <th>@s.Name</th>
+            <th>
+                <a asp-controller="Account" asp-action="Profile" asp-route-id="@s.Id" asp-route-role="@Roles.Student">Profil</a> 
+            </th>
+        </tr>
+        i++;
+        }
+
+    </table>
+
+    <h2 class="display-8 mt-5">Przedmioty</h2>
+    <table class="table">
+        <tr>
+            <th>Nazwa przedmiotu</th>
+            <th>Nauczyciel</th>
+            <th>Akcja</th>
+        </tr>
+        @foreach(Subject s in ViewBag.group.Subjects) {
+        <tr>
+            <th>@s.Name</th>
+            <th>@s.Teacher.Name</th>
+            <th>
+                <a asp-controller="Subject" asp-action="Profile" asp-route-id="@s.Id">Profil</a> 
+            </th>
+        </tr>
+        }
+
+    </table>
+</div>

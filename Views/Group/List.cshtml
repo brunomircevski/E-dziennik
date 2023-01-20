@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Klasy";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Klasy</h1><br><br>
+    <table class="table">
+        <tr>
+            <th>Nazwa</th>
+            <th>Wychowawca</th>
+            <th>Liczba uczniów</th>
+            <th>Akcja</th>
+        </tr>
+        @foreach(Group g in ViewBag.groups) {
+        <tr>
+            <th>@g.Name</th>
+            <th>@g.Teacher.Name</th>
+            <th>@g.Students.Count</th>
+            <th>
+                @if(ViewBag.admin == true) {
+                <a asp-controller="Group" asp-action="Delete" asp-route-id="@g.Id">Usuń</a><text> | </text>
+                <a asp-controller="Group" asp-action="Edit" asp-route-id="@g.Id">Edytuj</a><text> | </text>
+                }
+                <a asp-controller="Group" asp-action="Profile" asp-route-id="@g.Id">Profil</a>
+            </th>
+        </tr>
+        }
+
+    </table>
+</div>

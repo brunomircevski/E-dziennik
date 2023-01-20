@@ -1,0 +1,48 @@
+@{
+    ViewData["Title"] = "Profil przedmiotu";
+    
+    var subject = ViewBag.subject;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Profil przedmiotu</h1>
+</div>
+<div>
+    <table class="table mt-5">
+        <tr>
+            <th>Nazwa</th>
+            <td>@subject.Name</td>
+        </tr>
+        <tr>
+            <th>Nauczyciel</th>
+            <td>@subject.Teacher.Name</td>
+        </tr>
+        <tr>
+            <th>Klasy</th>
+            <td>
+                @foreach(Group g in subject.Groups) {
+                    @g.Name 
+                    <a asp-controller="Group" asp-action="Profile" asp-route-id="@g.Id">(Profil)</a>
+                    <br>
+                }
+            </td>
+        </tr>
+    </table>
+</div>
+<div>
+    <h2 class="h2 mt-5">Materiały</h2>
+    <table class="table table-striped mt-3">
+        <tr>
+            <th>Nazwa</th>
+            <th>Link</th>
+            <th>Data dodania</th>
+        </tr>
+            @foreach(Content c in subject.Contents) {
+                <tr>
+                    <td>@c.Name</td>
+                    <td>@if(@c.Link.StartsWith("http")) { <a href="@c.Link">@c.Link</a> } else { @c.Link }</td>
+                    <td>@c.Date.ToString("dd/MM/yyyy HH:mm")</td>
+                </tr>
+            }
+    </table>
+</div>

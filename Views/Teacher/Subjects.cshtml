@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "Moje przedmioty";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Moje przedmioty</h1><br><br>
+    <table class="table">
+        <tr>
+            <th>Nazwa</th>
+            <th>Klasy</th>
+            <th>Akcja</th>
+        </tr>
+        @foreach(Subject s in ViewBag.subjects) {
+        <tr>
+            <td>@s.Name</td>
+            <td>
+                @foreach(Group g in s.Groups) {
+                    <b>@g.Name</b>
+                    <a asp-controller="Teacher" asp-action="Subject" asp-route-subjectId="@s.Id" asp-route-groupId="@g.Id">Oceny</a><text> | </text>
+                    <a asp-controller="Message" asp-action="Add" asp-route-groupId="@g.Id">Wiadomość</a><br>
+                }
+            </td>
+            <td><a asp-controller="Subject" asp-action="Contents" asp-route-id="@s.Id">Materiały</a><br></td>
+        </tr>
+        }
+
+    </table>
+</div>

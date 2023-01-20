@@ -1,0 +1,19 @@
+@model Message
+@{
+    ViewData["Title"] = "Wyślij wiadomość";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Wyślij wiadomość</h1>
+    <form asp-controller="Message" asp-action="Add" method="post">
+        <label asp-for="GroupId"></label>
+        <select asp-for="GroupId" asp-items="@ViewBag.groups"></select>
+        <span asp-validation-for="GroupId" class="text-danger"></span> <br>
+
+        <label asp-for="Content"></label>
+        <textarea class="form-control" asp-for="Content" rows="10"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span> <br>
+
+        <button type="submit">Wyślij wiadomość</button><br><br>
+    </form>
+</div>

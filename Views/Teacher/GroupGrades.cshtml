@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "Klasa";
+    int i = 1;
+    int count = 0;
+    float sum = 0;
+    int totalCount = 0;
+    float totalSum = 0;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Oceny @ViewBag.subject.Name @ViewBag.group.Name</h1><br><br>
+    <p>Nauczyciel @ViewBag.subject.Teacher.Name</p>
+
+    <table class="table mt-5">
+        <tr>
+            <th>Id</th>
+            <th>Imię i Nazwisko</th>
+            <th>Oceny</th>
+            <th>Średnia</th>
+        </tr>
+        @foreach(Student s in ViewBag.group.Students) {
+        <tr>
+            <th>@i</th>
+            <th>@s.Name</th>
+            <th>
+                @foreach(Grade g in s.Grades) {
+                    <span class='grade-item' data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true"
+                    title='Ocena: <b>@g.ToString()</b><br>Waga: @g.Weight<br>@g.Date.ToString("dd/MM/yyyy HH:mm")'>@g.ToString()
+                    </span>
+                    sum += g.Value*g.Weight;
+                    count += g.Weight;
+                }
+            </th>
+            <th>@(Math.Round(sum/count,2))</th>
+        </tr>
+        totalCount += count;
+        totalSum += sum;
+
+        sum = 0;
+        count = 0;
+        i++;
+        }
+
+    </table>
+    <p>Średnia klasy: @(Math.Round(totalSum/totalCount,2))</p>
+</div>

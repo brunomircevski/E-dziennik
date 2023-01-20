@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Wiadomości";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Wiadomości @ViewBag.group.Name</h1>
+    @foreach(Message m in ViewBag.group.Messages) {
+        <section class="text-start mb-3 mt-3">
+            <h4>Nauczyciel @m.Teacher.Name</h4>
+            <span class="text-muted">@m.Date</span>
+            <p class="mt-1">
+               @m.Content
+            </p>
+        </section>
+        <hr>
+    }
+</div>

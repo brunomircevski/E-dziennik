@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Przedmioty";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Przedmioty</h1><br><br>
+    <table class="table">
+        <tr>
+            <th>Nazwa</th>
+            <th>Nauczyciel</th>
+            <th>Liczba klas</th>
+            <th>Akcja</th>
+        </tr>
+        @foreach(Subject s in ViewBag.subjects) {
+        <tr>
+            <th>@s.Name</th>
+            <th>@s.Teacher.Name</th>
+            @if(@s.Groups is not null) { 
+                <th>@s.Groups.Count</th> 
+            } else { 
+                <th>0</th> 
+            }
+            <th>
+                <a asp-controller="Subject" asp-action="Delete" asp-route-id="@s.Id">Usuń</a> |
+                <a asp-controller="Subject" asp-action="Groups" asp-route-id="@s.Id">Klasy</a> |
+                <a asp-controller="Subject" asp-action="Profile" asp-route-id="@s.Id">Profil</a>
+            </th>
+        </tr>
+        }
+
+    </table>
+</div>

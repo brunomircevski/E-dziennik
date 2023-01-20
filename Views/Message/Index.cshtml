@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "Wysłane wiadomości";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Wysłane wiadomości</h1>
+    <p><a asp-controller="Message" asp-action="Add">Wyślij nową</a></p>
+    @foreach(Message m in ViewBag.messages) {
+        <section class="text-start mb-3 mt-3">
+            <h4>Klasa @m.Group.Name</h4>
+            <span class="text-muted">@m.Date</span>
+            <a asp-controller="Message" asp-action="Delete" asp-route-id="@m.Id">[Usuń]</a>
+            <p class="mt-1">
+               @m.Content
+            </p>
+        </section>
+        <hr>
+    }
+</div>

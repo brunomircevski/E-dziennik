@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Start";
+}
+
+<div class="text-center">
+    <h1 class="display-4">E-Dziennik</h1>
+    <h2 class="mt-5">Najnowsze ogłoszenia</h2>
+    @foreach(Announcement a in ViewBag.announcements) {
+        <section class="text-start mb-5 mt-5">
+            <h3>@a.Title</h3>
+            <span>@a.Date</span> | 
+                @if(a.Teacher is null) { <span>Administrator</span> } 
+                else { <span>@a.Teacher.Name</span> } 
+            <p class="mt-2">
+                @if(a.Content.Length > 300) { 
+                    @(a.Content.Substring(0,200)+"... ");
+                    <a asp-controller="Announcement" asp-action="Details" asp-route-id="@a.Id">[czytaj dalej]</a> 
+                } 
+                else { @a.Content; }
+            </p>
+        </section>
+    }
+</div>

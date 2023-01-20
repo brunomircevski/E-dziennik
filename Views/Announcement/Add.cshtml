@@ -1,0 +1,19 @@
+@model Announcement
+@{
+    ViewData["Title"] = "Dodaj ogłoszenie";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Dodaj ogłoszenie</h1>
+    <form asp-controller="Announcement" asp-action="Add" method="post">
+        <label asp-for="Title"></label>
+        <input class="form-control" asp-for="Title"><br>
+        <span asp-validation-for="Title" class="text-danger"></span> <br>
+
+        <label asp-for="Content"></label>
+        <textarea class="form-control" asp-for="Content" rows="10"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span> <br>
+
+        <button type="submit">Dodaj ogłoszenie</button><br><br>
+    </form>
+</div>

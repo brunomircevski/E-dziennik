@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Moje dzieci";
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">Moje dzieci</h1>
+</div>
+<div>
+    <table class="table mt-5">
+        <tr>
+            <th>Imię i nazwisko</th>
+            <th>Klasa</th>
+            <th>Akcja</th>
+        </tr>
+
+        @foreach(Student s in ViewBag.students) {
+            <tr> 
+                <td>@s.Name</td>
+                @if(s.Group is not null) {
+                    <td>@s.Group.Name</td> 
+                    <td><a asp-controller="Parent" asp-action="Grades" asp-route-id="@s.Id">Oceny</a></td>
+                } else {
+                    <td>[brak]</td>
+                    <td></td>
+                }
+            </tr> 
+        }
+        
+    </table>
+</div>

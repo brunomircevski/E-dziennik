@@ -1,0 +1,92 @@
+@{
+    ViewData["Title"] = "Profil";
+    
+    var user = ViewBag.user;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Profil użytkownika</h1>
+</div>
+<div>
+    <table class="table mt-5">
+        <tr>
+            <th>Imię i nazwisko</th>
+            <td>@user.Name</td>
+        </tr>
+        <tr>
+            <th>Rola</th>
+            <td>@Roles.Translate(user.Role)</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@user.Email</td>
+        </tr>
+        @if(user.Role == Roles.Student) 
+        {
+            <tr>
+                <th>Rodzic</th>
+                <td>
+                    @user.Parent.Name 
+                    <a asp-controller="Account" asp-action="Profile" asp-route-id="@user.Parent.Id" asp-route-role="@Roles.Parent">(Profil)</a> 
+                </td>
+            </tr>
+            <tr>
+                <th>Email rodzica</th>
+                <td>@user.Parent.Email</td>
+            </tr>
+            <tr>
+                <th>Klasa</th>
+                @if(user.Group is not null) {
+                    <td>
+                        @user.Group.Name
+                        <a asp-controller="Group" asp-action="Profile" asp-route-id="@user.Group.Id">(Profil)</a> 
+                    </td>
+                } else {
+                    <td>[brak klasy]</td>
+                }
+            </tr>
+        } 
+        else if(user.Role == Roles.Parent) 
+        {          
+            foreach(Student s in user.Students) {
+                <tr> 
+                    <th>Dziecko</th>
+                    <td>
+                        @s.Name
+                        <a asp-controller="Account" asp-action="Profile" asp-route-id="@s.Id" asp-route-role="@Roles.Student">(Profil)</a><br>
+                        @if(s.Group is not null) { <span>Klasa: @s.Group.Name</span> }
+                        else { <span>[brak klasy]</span> }
+                    </td> 
+                </tr> 
+            }
+        }
+        else if(user.Role == Roles.Teacher)
+        {
+            if(user.Group is not null) {
+                <tr>
+                    <th>Wychowawca</th>
+                    <td>
+                        @user.Group.Name
+                        <a asp-controller="Group" asp-action="Profile" asp-route-id="@user.Group.Id">(Profil)</a>
+                    </td>
+                </tr>
+            }
+            if(user.Subjects.Count > 0) {
+                <tr>
+                    <th>Przedmioty</th>
+                    <td>
+                        @foreach(Subject s in user.Subjects) {
+                            @s.Name
+                            <a asp-controller="Subject" asp-action="Profile" asp-route-id="@s.Id">(Profil)</a>
+                            <br>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    <p><a asp-controller="Account" asp-action="Edit" asp-route-id="@user.Id" asp-route-role="@user.Role">Edytuj dane</a></p>
+    @if(User.IsInRole(Roles.Admin)) {
+        <p><a asp-controller="Admin" asp-action="Password" asp-route-id="@user.Id" asp-route-role="@user.Role">Resetuj hasło</a></p>
+    }
+</div>

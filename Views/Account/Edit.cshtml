@@ -1,0 +1,27 @@
+@model CreateUser
+@{
+    ViewData["Title"] = "Edytuj dane";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Edytuj dane</h1>
+    <form asp-controller="Account" asp-action="Edit" method="post">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" value="@ViewBag.email"><br>
+        <span asp-validation-for="Email" class="text-danger"></span> <br>
+
+        <label asp-for="Name"></label>
+        <input asp-for="Name" value="@ViewBag.name"><br>
+        <span asp-validation-for="Name" class="text-danger"></span> <br>
+
+        <input asp-for="Password" type="hidden" value="12345678"><br>
+        <input asp-for="Id" type="hidden" value="@ViewBag.id"><br>
+        <input asp-for="Role" type="hidden" value="@ViewBag.role"><br>
+
+        <button type="submit">Zapisz</button><br><br>
+        @if(ViewBag.error == "true") {
+            <span class="text-danger">Bład podczas edycji danych</span>
+        }
+    </form>
+
+</div>
