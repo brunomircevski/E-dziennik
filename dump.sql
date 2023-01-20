@@ -1,8 +1,8 @@
--- MariaDB dump 10.19  Distrib 10.6.7-MariaDB, for debian-linux-gnu (x86_64)
+-- MariaDB dump 10.19  Distrib 10.6.11-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: project
 -- ------------------------------------------------------
--- Server version	10.6.7-MariaDB-2ubuntu1.1
+-- Server version	10.6.11-MariaDB-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,7 +29,7 @@ CREATE TABLE `Admins` (
   `Name` varchar(100) NOT NULL,
   `Salt` blob NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,64 @@ LOCK TABLES `Admins` WRITE;
 /*!40000 ALTER TABLE `Admins` DISABLE KEYS */;
 INSERT INTO `Admins` VALUES (1,'brunomircevski@protonmail.com','qpXGtREOyyuayC+MTzW9m8SrZawmye6oW7w/Vt5CjqM=','bruno','#‘Ä‡Ë§+U∞D'),(2,'admin@admin','VYSuA9Stdd+Rv9kl7N2IcWjs/4eAtGs9vEDq2DUHsK8=','Admin2','∆êA^&⁄…¬\\Ω\Z˜œ');
 /*!40000 ALTER TABLE `Admins` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Announcements`
+--
+
+DROP TABLE IF EXISTS `Announcements`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Announcements` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Title` varchar(100) NOT NULL,
+  `Content` varchar(5000) NOT NULL,
+  `TeacherId` int(11) DEFAULT NULL,
+  `Date` datetime(6) NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `IX_Announcements_TeacherId` (`TeacherId`),
+  CONSTRAINT `FK_Announcements_Teachers_TeacherId` FOREIGN KEY (`TeacherId`) REFERENCES `Teachers` (`Id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Announcements`
+--
+
+LOCK TABLES `Announcements` WRITE;
+/*!40000 ALTER TABLE `Announcements` DISABLE KEYS */;
+INSERT INTO `Announcements` VALUES (1,'Lorem ipsum dolor sit amet, consectetur adipiscing elit.','Nam gravida venenatis risus, ut vulputate enim iaculis vitae. Quisque elementum urna nisi, et tincidunt justo auctor volutpat. Mauris arcu justo, commodo non arcu vel, commodo egestas dolor. Maecenas ex justo, tristique non aliquam et, porta nec ante. Maecenas aliquam pretium lobortis. Donec in sem dolor. Maecenas mi sapien, maximus vel erat euismod, fermentum laoreet odio. In consectetur magna nibh, id gravida sem finibus non. Integer ligula magna, cursus pretium urna non, aliquet feugiat lacus. Fusce rutrum luctus sem nec venenatis. In commodo elit vel magna pharetra, eu rhoncus purus convallis. Etiam ullamcorper egestas congue. Fusce pretium elementum enim, ut lobortis erat fermentum nec. Aenean fermentum non enim at tristique. Aenean vehicula mauris mauris.\r\n\r\nProin facilisis egestas dui, nec egestas est. Integer finibus velit vitae ante pulvinar pharetra. Donec feugiat at justo quis aliquet. Nam mollis purus a libero viverra porta. Nam nec venenatis nulla. In hac habitasse platea dictumst. Quisque et auctor massa, facilisis vehicula sapien. Vestibulum accumsan scelerisque risus, eu vehicula magna lacinia vitae. Quisque eu mauris in quam fermentum porta. Sed commodo vel purus non tincidunt.\r\n\r\n',7,'2022-11-11 11:06:09.840430'),(2,'Pellentesque a ornare arcu, tincidunt tempor erat. Ut nisl lectus, tincidunt quis dolor nec, ornare ','Sed scelerisque est sit amet leo tincidunt, sit amet suscipit neque feugiat. Pellentesque iaculis, sem at dapibus congue, erat felis imperdiet turpis, et bibendum sapien risus sit amet nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur ac commodo tortor, vitae mollis mauris. Proin tempor ipsum nec turpis efficitur, ac facilisis dui mollis. Phasellus ante lorem, hendrerit ut augue hendrerit, maximus condimentum nisl. Vestibulum convallis tincidunt eros eu sollicitudin. Nunc scelerisque tempor nunc, a scelerisque libero mattis id. Nunc non congue massa, sodales euismod metus. Donec at libero vitae nibh lobortis rutrum at et nisl. Praesent sagittis odio a leo malesuada, quis porta massa hendrerit. Sed pharetra risus ac blandit ullamcorper. Aliquam a tellus sit amet sem congue rhoncus faucibus nec magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in magna sed diam elementum ultrices posuere ac purus.',7,'2022-11-11 11:08:32.571901'),(3,'Og≈Çoszenie admin','admina og≈Çoszeniee nfuiods nioufn dio jnoisfdnoi fjos df\r\n',NULL,'2022-11-11 11:31:14.959651'),(5,'nowe kolejne','adminA',NULL,'2022-11-11 12:17:21.155058'),(7,'nauczyciel 4 og≈Çoszenie','tre≈õƒá',6,'2022-11-11 15:56:40.455022');
+/*!40000 ALTER TABLE `Announcements` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Contents`
+--
+
+DROP TABLE IF EXISTS `Contents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Contents` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `SubjectId` int(11) NOT NULL,
+  `Date` datetime(6) NOT NULL DEFAULT current_timestamp(6),
+  `Name` varchar(100) NOT NULL,
+  `Link` varchar(1000) NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `IX_Contents_SubjectId` (`SubjectId`),
+  CONSTRAINT `FK_Contents_Subjects_SubjectId` FOREIGN KEY (`SubjectId`) REFERENCES `Subjects` (`Id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Contents`
+--
+
+LOCK TABLES `Contents` WRITE;
+/*!40000 ALTER TABLE `Contents` DISABLE KEYS */;
+INSERT INTO `Contents` VALUES (16,15,'2023-01-20 15:34:20.728750','egzaminy','https://ceze.wi.pb.edu.pl/'),(23,15,'2023-01-20 15:50:10.221566','cez','https://cez2.wi.pb.edu.pl/');
+/*!40000 ALTER TABLE `Contents` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -61,7 +119,7 @@ CREATE TABLE `Grades` (
   KEY `IX_Grades_SubjectId` (`SubjectId`),
   CONSTRAINT `FK_Grades_Students_StudentId` FOREIGN KEY (`StudentId`) REFERENCES `Students` (`Id`) ON DELETE CASCADE,
   CONSTRAINT `FK_Grades_Subjects_SubjectId` FOREIGN KEY (`SubjectId`) REFERENCES `Subjects` (`Id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +146,7 @@ CREATE TABLE `GroupSubject` (
   KEY `IX_GroupSubject_SubjectsId` (`SubjectsId`),
   CONSTRAINT `FK_GroupSubject_Groups_GroupsId` FOREIGN KEY (`GroupsId`) REFERENCES `Groups` (`Id`) ON DELETE CASCADE,
   CONSTRAINT `FK_GroupSubject_Subjects_SubjectsId` FOREIGN KEY (`SubjectsId`) REFERENCES `Subjects` (`Id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,7 +173,7 @@ CREATE TABLE `Groups` (
   PRIMARY KEY (`Id`),
   UNIQUE KEY `IX_Groups_TeacherId` (`TeacherId`),
   CONSTRAINT `FK_Groups_Teachers_TeacherId` FOREIGN KEY (`TeacherId`) REFERENCES `Teachers` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,6 +184,37 @@ LOCK TABLES `Groups` WRITE;
 /*!40000 ALTER TABLE `Groups` DISABLE KEYS */;
 INSERT INTO `Groups` VALUES (2,'2a',2),(8,'3a',4),(12,'4a',6),(14,'5x',7);
 /*!40000 ALTER TABLE `Groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Messages`
+--
+
+DROP TABLE IF EXISTS `Messages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Messages` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Content` varchar(5000) NOT NULL,
+  `GroupId` int(11) NOT NULL,
+  `TeacherId` int(11) NOT NULL,
+  `Date` datetime(6) NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `IX_Messages_GroupId` (`GroupId`),
+  KEY `IX_Messages_TeacherId` (`TeacherId`),
+  CONSTRAINT `FK_Messages_Groups_GroupId` FOREIGN KEY (`GroupId`) REFERENCES `Groups` (`Id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_Messages_Teachers_TeacherId` FOREIGN KEY (`TeacherId`) REFERENCES `Teachers` (`Id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Messages`
+--
+
+LOCK TABLES `Messages` WRITE;
+/*!40000 ALTER TABLE `Messages` DISABLE KEYS */;
+INSERT INTO `Messages` VALUES (1,'wiadomo≈õƒá¬†to klasy 5xssssssssssssssssssssssssssssssssssss',14,7,'2022-11-11 15:35:29.214083'),(2,'nie bedzie lekcji 3a',8,7,'2022-11-11 15:36:08.723458'),(4,'test',14,6,'2022-11-11 15:56:47.907727'),(5,'tessds',8,6,'2022-11-11 15:56:52.901898');
+/*!40000 ALTER TABLE `Messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -142,7 +231,7 @@ CREATE TABLE `Parents` (
   `Name` varchar(100) NOT NULL,
   `Salt` blob NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -175,7 +264,7 @@ CREATE TABLE `Students` (
   KEY `IX_Students_GroupId` (`GroupId`),
   CONSTRAINT `FK_Students_Groups_GroupId` FOREIGN KEY (`GroupId`) REFERENCES `Groups` (`Id`) ON DELETE SET NULL,
   CONSTRAINT `FK_Students_Parents_ParentId` FOREIGN KEY (`ParentId`) REFERENCES `Parents` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,7 +291,7 @@ CREATE TABLE `Subjects` (
   PRIMARY KEY (`Id`),
   KEY `IX_Subjects_TeacherId` (`TeacherId`),
   CONSTRAINT `FK_Subjects_Teachers_TeacherId` FOREIGN KEY (`TeacherId`) REFERENCES `Teachers` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,7 +318,7 @@ CREATE TABLE `Teachers` (
   `Name` varchar(100) NOT NULL,
   `Salt` blob NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,6 +331,29 @@ INSERT INTO `Teachers` VALUES (1,'nauczyciel@mail','WSHZQJdfuann/AD3yAl4IFSzs0PI
 /*!40000 ALTER TABLE `Teachers` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `__EFMigrationsHistory`
+--
+
+DROP TABLE IF EXISTS `__EFMigrationsHistory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `__EFMigrationsHistory` (
+  `MigrationId` varchar(150) NOT NULL,
+  `ProductVersion` varchar(32) NOT NULL,
+  PRIMARY KEY (`MigrationId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `__EFMigrationsHistory`
+--
+
+LOCK TABLES `__EFMigrationsHistory` WRITE;
+/*!40000 ALTER TABLE `__EFMigrationsHistory` DISABLE KEYS */;
+INSERT INTO `__EFMigrationsHistory` VALUES ('20221111102235_InitialCreate','6.0.10'),('20221111102519_NullableTeacherAnnoucments','6.0.10'),('20230120132011_Content','6.0.10');
+/*!40000 ALTER TABLE `__EFMigrationsHistory` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -252,4 +364,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-01 12:20:42
+-- Dump completed on 2023-01-20 15:56:14
