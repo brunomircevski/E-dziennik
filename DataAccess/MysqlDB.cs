@@ -7,7 +7,7 @@ public class MysqlDB : DbContext, IDB
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseMySql(connectionString: @"Data Source=localhost;port=3306;Initial Catalog=project;User Id=net;password=root",
+        optionsBuilder.UseMySql(connectionString: @"Data Source=localhost;port=3306;Initial Catalog=mvc;User Id=root;password=Janosik24013@",
             new MySqlServerVersion(new Version(10, 6, 7)));
     }
 

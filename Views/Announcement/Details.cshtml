@@ -6,14 +6,15 @@
 
 <div class="text-center">
     <h1 class="display-4">Ogłoszenie</h1>
-
-    <section class="text-start mb-5 mt-5">
-        <h3>@a.Title</h3>
-        <span>@a.Date</span> | 
-            @if(a.Teacher is null) { <span>Administrator</span> } 
-            else { <span>@a.Teacher.Name</span> } 
-        <p class="mt-2">
-            @a.Content
-        </p>
-    </section>
+    <div class="announ">
+        <section class="text-start mb-5 mt-5">
+            <h3>@a.Title</h3>
+            <span>@a.Date</span> | 
+                @if(a.Teacher is null) { <span>Administrator</span> } 
+                else { <span>@a.Teacher.Name</span> } 
+            <p class="mt-2">
+                @a.Content
+            </p>
+        </section>
+    </div>
 </div>

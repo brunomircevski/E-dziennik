@@ -3,10 +3,11 @@
     ViewData["Title"] = "Logowanie";
 }
 
-<div class="text-center">
+<div class="text-center" class="login-box">
+    <i class="fa-solid fa-user-tie"></i>
     <h1 class="display-4">Logowanie</h1>
-    <form asp-controller="Account" asp-action="Login" method="post">
-        <label asp-for="Email"></label>
+    <form asp-controller="Account" asp-action="Login" method="post" class="formularz">
+        <label asp-for="Email" placeholder="podaj imię"></label>
         <input asp-for="Email"><br>
         <span asp-validation-for="Email" class="text-danger"></span> <br>
 
@@ -18,3 +19,7 @@
         <span class="text-danger">@ViewBag.msg</span>
     </form>
 </div>
+
+            
+        
+       
