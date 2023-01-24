@@ -27,7 +27,7 @@ body {
     --custom-trim-color: #6f7e80;
     --custom-text-color: #ffffff;
 
-   
+   top: 0 !important;
     
 }
 
@@ -205,4 +205,8 @@ i.material-icons{
 }
 button{
   margin-top: 8px;
+}
+
+.goog-te-banner-frame{
+  display: none;
 }
